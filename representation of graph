@@ -1,0 +1,44 @@
+#include <iostream>
+#include<vector>
+using namespace std;
+class Graph{
+    public:
+    int v;
+    vector<int> *adj;
+    Graph(int v){
+      this->v=v;
+      adj=new vector<int>[v];
+    }
+    void addedges(int v,int u){
+        adj[v].push_back(u);
+    }
+    void display()
+    {
+        for(int i=0;i<v;i++)
+        {
+            for(int j=0;j<v;j++){
+            cout<<adj[i][j]<<" ";
+        }
+        cout<<endl;
+        }
+    }
+};
+
+int main()
+{
+ int v,e;
+ cout<<"enter the number of vertices"<<endl;
+ cin>>v;
+ cout<<"enter number of edges"<<endl;
+ cin>>e;
+ Graph g(v);
+ cout<<"enter the edges"<<endl;
+ for(int i=0;i<e;i++)
+ {
+     int a,u;
+     cin>>a>>u;
+     g.addedges(a,u);
+     g.addedges(u,a);
+ }
+ g.display();
+}
