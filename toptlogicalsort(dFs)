@@ -1,0 +1,54 @@
+#include<bits/stdc++.h>
+using namespace std;
+void topological(int node,stack<int>&s,vector<int>adj[],vector<int >&visit)
+{
+
+visit[node]=1;
+ for(auto it:adj[node])
+    {
+        if(!visit[it])
+        {
+            topological(it,s,adj,visit);
+        }
+    }
+    s.push(node);
+}
+vector<int>result(int n ,vector<int>adj[])
+{
+    stack<int>s;
+    vector<int>visit(n,0);    //VISITED ARRAY OF VALUES 0 IN IT
+    for(int i=0;i<n;i++)
+    {
+        if(visit[i]==0)
+        {
+            topological(i,s,adj,visit);
+        }
+    }
+    vector<int>topo;
+   while(!s.empty())   //TRANSFERING THE STACK INTO VECTOR  NAMED  TOPO
+   {
+       topo.push_back(s.top());
+    s.pop();
+   }
+   return topo;         //RETURNING THE TOPOLOGICAL SORTT
+}
+int main()
+{
+    int n ,m;         //NUMBER OF NODES AND EDGES 
+    cout<<"Enter the number of nodes and edges\n";
+    cin>>n>>m;
+    vector<int>adj[n+1];
+    for(int i=0;i<m;i++)// CREATING A ADJACENCY LIST
+   {
+       int u,v;
+       cin>>u>>v;
+       adj[u].push_back(v);
+   }
+   vector<int>topo;
+    topo=result(n,adj);
+  cout<<"\nTHE TOPOLOGICAL SORT IS \n";
+    for(int i=0;i<topo.size();i++)  //PRINTING THE TOPOLOGICAL SORTT
+    {
+        cout<<topo[i]<<" ";
+    }
+}
